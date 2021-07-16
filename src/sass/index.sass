@@ -1,4 +1,255 @@
-$color: lightgreen
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap')
+@import "~normalize.css"
+
+$header-height: 34px
+$toolbar-height: 40px
+$formula-height: 24px
+$info-cell-width: 40px
+$cell-width: 120px
+$row-height: 24px
+$db-header-height: 64px
+$border-color: #c0c0c0
+
+@mixin button($color: green)
+  height: 24px
+  min-width: 24px
+  padding: 3px
+  text-align: center
+  position: relative
+  display: inline-block
+  color: rgba(0, 0, 0, .7)
+
+  & i
+    font-size: 18px
+
+  &:active, &.active
+    color: $color
+
+  &:hover
+    background: #eee
+    cursor: pointer
+
+@mixin clear-list()
+  list-style: none
+  margin: 0
+  padding: 0
+
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
 
 body
-  background-color: $color
+  font-family: 'Roboto', sans-serif
+  font-size: 12px
+
+.excel
+  position: relative
+  color: #888
+  height: 100%
+  max-width: 100%
+  font-size: .8rem
+
+.excel__header
+  position: absolute
+  top: 0
+  right: 0
+  left: 0
+  height: $header-height
+  padding: 8px 4px 0
+  display: flex
+  justify-content: space-between
+
+  & .input
+    margin: 0
+    padding: 2px 7px
+    min-width: 1px
+    color: #000
+    border: 1px solid transparent
+    border-radius: 2px
+    height: 20px
+    font-size: 18px
+    line-height: 22px
+    outline: none
+
+    &:hover
+      border: 1px solid $border-color
+
+    &:focus
+      border: 2px solid #1a73e8
+
+  .button
+    @include button(red)
+
+.excel__toolbar
+  position: absolute
+  left: 0
+  right: 0
+  top: $header-height
+  height: $toolbar-height
+  border-top: 1px solid $border-color
+  border-bottom: 1px solid $border-color
+  padding: 7px 10px
+  display: flex
+
+  .button
+    @include button(green)
+
+.excel__formula
+  position: absolute
+  left: 0
+  right: 0
+  top: $header-height + $toolbar-height
+  height: $formula-height
+  display: flex
+  align-items: center
+  border-bottom: 1px solid $border-color
+
+  .info
+    font-size: 18px
+    font-style: italic
+    text-align: center
+    border-right: 1px solid $border-color
+    min-width: $info-cell-width
+
+  .input
+    padding: 4px
+    font-size: 12px
+    outline: none
+    width: 100%
+    height: 100%
+    color: #000
+
+.excel__table
+  position: absolute
+  left: 0
+  right: 0
+  top: $header-height + $toolbar-height + $formula-height
+  overflow-x: auto
+  padding-bottom: 2px
+
+  .row
+    display: flex
+    flex-direction: row
+    min-height: 20px
+    height: $row-height
+
+    &-info
+      display: flex
+      justify-content: center
+      align-items: center
+      min-width: $info-cell-width
+      height: 100%
+      border: 1px solid $border-color
+      background: #f8f9fa
+      border-top: none
+
+    &-data
+      display: flex
+
+  .column
+    display: flex
+    justify-content: center
+    align-items: center
+    background: #f8f9fa
+    min-width: 40px
+    width: $cell-width
+    border: 1px solid $border-color
+    border-top: 0
+    border-left: 0
+    height: 100%
+
+  .cell
+    min-width: 40px
+    padding: 5px
+    width: $cell-width
+    height: 100%
+    border: 1px solid #e2e3e3
+    border-top: 0
+    border-left: 0
+    color: #111
+    white-space: nowrap
+    outline: none
+
+    &.selected
+      border: none
+      outline: 2px solid #3c74ff
+      z-index: 2
+
+.db
+
+  &__header
+    position: fixed
+    left: 0
+    right: 0
+    top: 0
+    height: $db-header-height
+    display: flex
+    align-items: center
+    justify-content: center
+    background: #fff
+    box-shadow: 0 2px 5px 2px rgba(60, 64, 67, 0.15)
+    z-index: 1000
+
+  &__new
+    margin-top: $db-header-height
+    padding: 1.5rem
+    background: #dadce0
+
+  &__create
+    width: 160px
+    height: 160px
+    background: #fff
+    border-radius: 4px
+    border: 1px solid #dadce0
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 1.5rem
+    text-decoration: none
+    color: #000
+    text-align: center
+
+    &:hover
+      cursor: pointer
+      color: green
+      border-color: green
+
+  &__view
+    max-width: 1000px
+    margin: 0 auto
+
+  &__table
+    padding: 1rem
+
+  &__list-header
+    display: flex
+    justify-content: space-between
+    color: #202124
+    font-weight: 500
+    font-size: 16px
+    margin-bottom: 10px
+    padding: 0 12px
+
+  &__list
+    @include clear-list
+
+  &__record
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 12px 14px 12px 16px
+    margin-bottom: 10px
+
+    &:hover
+      background: #e6f4ea
+      border-radius: 25px
+
+    a
+      text-decoration: none
+      cursor: pointer
+      color: #202124
+      font-size: 14px
+
+      &:hover
+        text-decoration: underline
